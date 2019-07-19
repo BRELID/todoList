@@ -8,12 +8,12 @@
     <body>
         <h1>My Todo List</h1>
         <p>
-        <% if (todo.length > 0) { 
+        <% if (list_todo.length > 0) { 
             %>
             <ul>
-            <% for(var i = 0 ; i < todo.length ; i++) {
+            <% for(var i = 0 ; i < list_todo.length ; i++) {
             %>
-            <li><span><%= todo[i] %></span> <button onclick="deleteElemTodo(<%= i %>)">Delete</button> </li>
+            <li><span><%= list_todo[i] %></span> <button onclick="deleteElemTodo(<%= i %>)">Delete</button> </li>
             <% } %>
             </ul>
         <% } %>

@@ -4,20 +4,26 @@ var bodyParser = require('body-parser'); // load the body parser middleware, for
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var app = express();
-todo = [];
 
 //We use session
 app.use(session({ secret: 'mysecretsessionkey' }))
-
-
+.use(function(req, res, next){
+    if (typeof(req.session.todolist) == 'undefined') {
+        req.session.todolist = [];
+    }
+    next();
+})
 //BEGIN ROUTES
-app.get('/todo', (req, res) => {
-    res.render('home.ejs', { list_todo: todo });
+.get('/todo', (req, res) => {
+    res.render('home.ejs', { list_todo: req.session.todolist });
 }).post('/todo/add', urlencodedParser, (req, res) => {
-    todo.push(req.body.add_todo);
+
+    if(req.body.add_todo != "")
+        req.session.todolist.push(req.body.add_todo);
+
     res.redirect('/todo');
 }).get('/todo/delete/:id', (req, res) => {
-    todo.splice(req.params.id,1);
+    req.session.todolist.splice(req.params.id,1);
     res.redirect('/todo');
 }).use(function (req, res, next) {
 
