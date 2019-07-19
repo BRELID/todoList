@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1>My Todo List</h1>
+        <p>
+        <% if (todo.length > 0) { 
+            %>
+            <ul>
+            <% for(var i = 0 ; i < todo.length ; i++) {
+            %>
+            <li><span><%= todo[i] %></span> <button onclick="deleteElemTodo(<%= i %>)">Delete</button> </li>
+            <% } %>
+            </ul>
+        <% } %>
+        </p>
+        <form method="post" action="/todo/add">
+            <label for="add_todo">What I've to do ?</label>
+            <input type="text" name="add_todo" id="add_todo" value="">
+            <input type="submit" name="submit" value="ToDo">
+        </form>
+    </body>
+    <script>
+    function deleteElemTodo(id){
+
+        var confirmation = confirm("Do you really want delete this task ?")
+        if(confirmation)
+            window.location.href = window.location.href + '/delete/' + id
+    }
+    </script>
+</html>
